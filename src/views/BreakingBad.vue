@@ -1,7 +1,8 @@
 <template>
   <div class="breakingBad">
-    <form v-on:submit.prevent="findWords">
-      <p>Find rhymes for <input type="text" v-model="rhyme"> related to <input type="text" v-model="phrase"> <button type="submit">Search</button></p>
+    <h1>Breaking Bad: Learn about the characters</h1>
+    <form v-on:submit.prevent="findName">
+      <p>Search the characters by name <input type="text" v-model="names"><button type="submit">Search</button></p>
     </form>
     <ul v-if="results && results.length > 0" class="results">
       <li v-for="item of results">
@@ -10,8 +11,8 @@
       </li>
     </ul>
     <div v-else-if="results && results.length==0" class="no-results">
-      <h2>No Words Found</h2>
-      <p>Please adjust your search to find more words.</p>
+      <h2>A character does not have that name</h2>
+      <p>Please try "Walter", "Saul" or "Jesse".</p>
     </div>
 
     <ul v-if="errors && errors.length > 0" class="errors">
@@ -32,15 +33,13 @@ export default {
       results: null,
       errors: [],
       phrase: '',
-      rhyme: ''
     }
   },
   methods: {
-    findWords: function(){
-      axios.get('https://api.datamuse.com/words', {
+    findName: function(){
+      axios.get('https://www.breakingbadapi.com/api/characters?name=', {
         params: {
-          ml: this.phrase,
-          rel_rhy: this.rhyme
+          name: this.name,
         }
       })
       .then(response => {
@@ -56,7 +55,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.rhymesaurus {
+.breakingBad {
   font-size: 1.4rem;
 }
 

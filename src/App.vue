@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/BreakingBad">Learn about Breaking Bad</router-link> |
-      <router-link to="/BreakingRandom">Random Fact</router-link> |
+      <router-link to="/BreakingRandom">Random Quote</router-link> |
     </div>
     <router-view/>
   </div>

@@ -1,5 +1,7 @@
 # wats4000-final-project
 
+This application uses the Breaking Bad API to list all the characters in the show and is a random quote generator.
+
 ## Project setup
 ```
 npm install
