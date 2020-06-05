@@ -33,6 +33,12 @@ export default {
       results: null,
       errors: [],
       phrase: '',
+      name:'',
+      occupation:'',
+      img:'',
+      status:'',
+      nickname:'',
+      protrayed:''
     }
   },
   methods: {

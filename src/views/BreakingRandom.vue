@@ -1,28 +1,11 @@
 <template>
   <div class="quote">
     <h1>Breaking Bad Quotes</h1>
-    <form v-on:submit.prevent="findName">
-      <p>Get a random quote <input type="text" v-model="quote"> <button type="submit">Search</button></p>
+    <form v-on:submit.prevent="findQuote">
+      <p>
+        <button type="submit">Get a random quote</button>
+      </p>
     </form>
-    
-    <ul v-if="results && results.length > 0" class="results">
-      <li v-for= "item of results" :key="item">
-        <p><strong>{{item.word}}</strong></p>
-        <p>{{item.score}}</p>
-      </li>
-    </ul>
-
-    <div v-else-if="results && results.length==0" class="no-results">
-      <h2>No Words Found</h2>
-      <p>Please adjust your search to find more words.</p>
-    </div>
-
-    <ul v-if="errors.length > 0" class="errors">
-      <li v-for="error of errors" :key="error">
-        {{error.message}}
-       
-      </li>
-    </ul>
   </div>
 </template>
 
@@ -34,24 +17,24 @@ export default {
     return {
       results: null,
       errors: [],
-      adjective: ''
+      quote:'',
+      author:'',
+      series:''
     }
   },
-  methods: {
-    findWords: function(){
-      axios.get('https://www.breakingbadapi.com/api/quote/random',{
-        params: {
-          rel_jjb: this.adjective
-        }
+ methods: {
+    findQuote: function(){
+      axios.get('https://www.breakingbadapi.com/api/quote/random', {
+        params: {}
       })
       .then(response => {
-        this.results = response.data;
-      })
-      .catch(error => {
-        this.errors.push(error);
-      });
-    }
+      this.results = response.data;
+    })
+    .catch(error => {
+      this.errors.push(error);
+    });
   }
+ }
 }
 </script>
 
@@ -61,7 +44,7 @@ export default {
   font-size: 1.4rem;
   color: #42b983;
 }
-input[type="text"]{
+input {
   border-top: none;
   border-left: none;
   border-right: none;
@@ -70,10 +53,10 @@ input[type="text"]{
   font-size: 1.4rem;
   color: #2c3e50;
   font-weight: 300;
-  background: rgba(0,0,0,0.02);
+  background: rgba(0, 0, 0, 0.02);
   padding: 0.5rem;
 }
-button{
+button {
   background: #333;
   padding: 0.5rem;
   font-weight: 300;
@@ -82,7 +65,8 @@ button{
   cursor: pointer;
   font-size: 1.4rem;
 }
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 ul.errors {
