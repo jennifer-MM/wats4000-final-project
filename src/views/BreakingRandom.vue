@@ -1,12 +1,22 @@
 <template>
   <div class="quote">
     <h1>Breaking Bad Quotes</h1>
-    <form v-on:submit.prevent="findQuote">
+    <form v-on:click="findQuote">
       <p>
         <button type="submit">Get a random quote</button>
       </p>
     </form>
+    <ul v-if="results && results.length > 0" class="results">
+        <li v-for="item of results" :key="item">
+            <p><strong>{{item.quote}}</strong></p>
+            <p>{{item.author}}</p>
+            <p>{{item.series}}</p>
+        </li>
+    </ul>
+
   </div>
+
+ 
 </template>
 
 <script>
@@ -40,10 +50,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.quote {
+.quote, .series {
   font-size: 1.4rem;
   color: #42b983;
 }
+
+.author {
+    font-size: 1 rem;
+    color: black
+}
+
 input {
   border-top: none;
   border-left: none;
