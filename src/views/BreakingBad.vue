@@ -5,18 +5,22 @@
       <p>Search the characters by name <input type="text" v-model="names"><button type="submit">Search</button></p>
     </form>
     <ul v-if="results && results.length > 0" class="results">
-      <li v-for="item of results">
-        <p><strong>{{item.word}}</strong></p>
-        <p>{{item.score}}</p>
+      <li v-for="item of results" :key="item">
+        <p><strong>{{item.name}}</strong></p>
+        <p>{{item.occupation}}</p>
+        <p>{{item.status}}</p>
+        <p>{{item.nickname}}</p>
+        <p>{{item.portrayed}}</p>
+         <p>{{item.category}}</p>
       </li>
     </ul>
     <div v-else-if="results && results.length==0" class="no-results">
       <h2>A character does not have that name</h2>
-      <p>Please try "Walter", "Saul" or "Jesse".</p>
+      <p>Please try "Walter", "Saul" or "Jesse"</p>
     </div>
 
     <ul v-if="errors && errors.length > 0" class="errors">
-      <li v-for="error of errors">
+      <li v-for="error of errors" :key="error">
         {{error.message}}
       </li>
     </ul>
@@ -38,7 +42,8 @@ export default {
       img:'',
       status:'',
       nickname:'',
-      protrayed:''
+      protrayed:'',
+      category:''
     }
   },
   methods: {

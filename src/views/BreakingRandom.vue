@@ -73,10 +73,10 @@ input {
   padding: 0.5rem;
 }
 button {
-  background: #333;
+  background: #f72359;
   padding: 0.5rem;
   font-weight: 300;
-  color: #fff;
+  color: white;
   border: none;
   cursor: pointer;
   font-size: 1.4rem;
