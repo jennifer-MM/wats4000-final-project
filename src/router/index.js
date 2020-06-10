@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import BreakingBad from '@/views/BreakingBad'
 import BreakingRandom from '@/views/BreakingRandom'
+import CharacterSearch from '@/views/CharacterSearch'
 
 
 Vue.use(VueRouter)
@@ -16,6 +17,11 @@ Vue.use(VueRouter)
     path: '/BreakingRandom',
     name: 'BreakingRandom',
     component: BreakingRandom
+  },
+  {
+    path: '/CharacterSearch',
+    name: 'CharacterSearch',
+    component: CharacterSearch
   }
 
 ]

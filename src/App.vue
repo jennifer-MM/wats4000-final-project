@@ -3,6 +3,7 @@
     <div id="nav">
       <router-link to="/BreakingBad">Learn about Breaking Bad characters</router-link> |
       <router-link to="/BreakingRandom">Random Quote</router-link> |
+      <router-link to="/CharacterSearch">Find a character</router-link>
     </div>
     <router-view/>
   </div>

@@ -1,67 +1,89 @@
 <template>
   <div class="breakingBad">
-    <h1>Breaking Bad: Learn about the characters</h1>
-    <form v-on:submit.prevent="findName">
-      <p>Search the characters by name <input type="text" v-model="names"><button type="submit">Search</button></p>
-    </form>
-    <ul v-if="results && results.length > 0" class="results">
-      <li v-for="item of results" :key="item">
-        <p><strong>{{item.name}}</strong></p>
-        <p>{{item.occupation}}</p>
-        <p>{{item.status}}</p>
-        <p>{{item.nickname}}</p>
-        <p>{{item.portrayed}}</p>
-         <p>{{item.category}}</p>
-      </li>
-    </ul>
-    <div v-else-if="results && results.length==0" class="no-results">
+    <div class="displayCharacter" v-show="showCharacter">
+      <h1>Breaking Bad: Learn about the characters</h1>
+      <form v-on:submit.prevent="findName">
+        <p>
+          Search the characters by name
+          <input type="text" v-model="name" placeholder="Jesse" />
+          <button type="submit">Search</button>
+        </p>
+        <p
+          class="error"
+          v-show="showError"
+        >A character doesn't have that name. Please try Walter, Jesse, or Saul.</p>
+      </form>
+
+      <!--<div class="displayCharacter">
+    <div class="character" v-for="item in results.character" :key="item.name">
+    <img:src="item.imageUrl" :alt="item.name"> 
+
+     <div> Set:  {{item.set}} </div>
+      <!--  v-bind to apply images from results 
+
+      </div>-->
+
+      <ul v-if="results && results.length > 0" class="results">
+        <li v-for="item of results" :key="item.name">
+          <p>
+            <strong>{{item.name}}</strong>
+          </p>
+          <p>{{item.occupation}}</p>
+          <p>{{item.status}}</p>
+          <p>{{item.nickname}}</p>
+          <p>{{item.portrayed}}</p>
+          <p>{{item.category}}</p>
+        </li>
+      </ul>
+
+      <!--<div v-else-if="results && results.length == 0" class="no-results">
       <h2>A character does not have that name</h2>
       <p>Please try "Walter", "Saul" or "Jesse"</p>
     </div>
 
     <ul v-if="errors && errors.length > 0" class="errors">
-      <li v-for="error of errors" :key="error">
-        {{error.message}}
-      </li>
-    </ul>
+      <li v-for="error of errors" :key="error">{{error.message}}</li>
+      </ul>-->
+    </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
-  name: 'breakingBad',
-  data () {
+  name: "breakingBad",
+  data() {
     return {
       results: null,
       errors: [],
-      phrase: '',
-      name:'',
-      occupation:'',
-      img:'',
-      status:'',
-      nickname:'',
-      protrayed:'',
-      category:''
-    }
+      phrase: "",
+      name: "",
+      occupation: "",
+      img: "",
+      status: "",
+      nickname: "",
+      protrayed: "",
+      category: ""
+    };
   },
   methods: {
-    findName: function(){
-      axios.get('https://www.breakingbadapi.com/api/characters?name=', {
-        params: {
-          name: this.name,
-        }
-      })
-      .then(response => {
-        this.results = response.data;
-      })
-      .catch(error => {
-        this.errors.push(error);
-      });
+    findName: function() {
+      axios
+        .get("https://www.breakingbadapi.com/api/characters", {
+          params: {
+            name: this.name
+          }
+        })
+        .then(response => {
+          this.results = response.data;
+        })
+        .catch(error => {
+          this.errors.push(error);
+        });
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -70,7 +92,7 @@ export default {
   font-size: 1.4rem;
 }
 
-input[type="text"]{
+input[type="text"] {
   border-top: none;
   border-left: none;
   border-right: none;
@@ -79,10 +101,10 @@ input[type="text"]{
   font-size: 1.4rem;
   color: #2c3e50;
   font-weight: 300;
-  background: rgba(0,0,0,0.02);
+  background: rgba(0, 0, 0, 0.02);
   padding: 0.5rem;
 }
-button{
+button {
   background: #333;
   padding: 0.5rem;
   font-weight: 300;
@@ -91,7 +113,8 @@ button{
   cursor: pointer;
   font-size: 1.4rem;
 }
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 
@@ -108,7 +131,7 @@ ul.results {
   width: 200px;
   min-height: 100px;
   color: #fff;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.7);
 }
 ul.errors {
   list-style-type: none;
