@@ -1,30 +1,18 @@
 <template>
   <div class="breakingBad">
-    <div class="displayCharacter" v-show="showCharacter">
-      <h1>Breaking Bad: Learn about the characters</h1>
+    <h1>Breaking Bad: Learn about the characters</h1>
+
+    <div class="displayCharacter">
       <form v-on:submit.prevent="findName">
         <p>
-          Search the characters by name
-          <input type="text" v-model="name" placeholder="Jesse" />
+          Search the characters by first name
+          <input type="text" v-model="name" />
           <button type="submit">Search</button>
         </p>
-        <p
-          class="error"
-          v-show="showError"
-        >A character doesn't have that name. Please try Walter, Jesse, or Saul.</p>
       </form>
 
-      <!--<div class="displayCharacter">
-    <div class="character" v-for="item in results.character" :key="item.name">
-    <img:src="item.imageUrl" :alt="item.name"> 
-
-     <div> Set:  {{item.set}} </div>
-      <!--  v-bind to apply images from results 
-
-      </div>-->
-
       <ul v-if="results && results.length > 0" class="results">
-        <li v-for="item of results" :key="item.name">
+        <li v-for="item in results" :key="item.name">
           <p>
             <strong>{{item.name}}</strong>
           </p>
@@ -36,21 +24,20 @@
         </li>
       </ul>
 
-      <!--<div v-else-if="results && results.length == 0" class="no-results">
-      <h2>A character does not have that name</h2>
-      <p>Please try "Walter", "Saul" or "Jesse"</p>
-    </div>
+      <div v-else-if="results && results.length==0" class="no-results">
+        <h2>A character does not have that name</h2>
+        <p>Please try "Walter", "Saul" or "Jesse"</p>
+      </div>
 
-    <ul v-if="errors && errors.length > 0" class="errors">
-      <li v-for="error of errors" :key="error">{{error.message}}</li>
-      </ul>-->
+      <ul v-if="errors && errors.length > 0" class="errors">
+        <li v-for="error of errors" :key="error">{{error.message}}</li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-
 export default {
   name: "breakingBad",
   data() {
@@ -91,7 +78,6 @@ export default {
 .breakingBad {
   font-size: 1.4rem;
 }
-
 input[type="text"] {
   border-top: none;
   border-left: none;
@@ -117,12 +103,10 @@ h1,
 h2 {
   font-weight: normal;
 }
-
 ul.results {
   list-style-type: none;
   padding: 0;
 }
-
 .results li {
   display: inline-block;
   margin: 10px;
@@ -142,7 +126,6 @@ ul.errors {
   padding: 0.5rem;
   margin: 10px 0;
 }
-
 a {
   color: #42b983;
 }
