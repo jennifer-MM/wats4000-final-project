@@ -17,7 +17,9 @@
             <strong>Name: {{item.name}}</strong>
           </p>
           <img class="image" v-bind:src="item.img" v-bind:alt="item.alt" />
-          <p> Occupation: {{item.occupation}}</p>
+          <ul class="occupation-list">
+            <li v-for="occupation in item.occupations" :key="occupation">{{ occupation }}</li>
+          </ul>
           <p>Alive or dead: {{item.status}}</p>
           <p>Nickname: {{item.nickname}}</p>
           <p>Portrayed by: {{item.portrayed}}</p>
@@ -25,12 +27,12 @@
         </li>
       </ul>
 
-      <div v-else-if="results && results.length==0" class="no-results">
+      <div v-else-if="results && results.length == 0" class="no-results">
         <h2>A character does not have that name</h2>
         <p>Please try "Walter", "Saul" or "Jesse"</p>
       </div>
 
-      <ul v-if="errors && errors.length > 0" class="errors">
+      <ul v-if="errors && errors.length < 0" class="errors">
         <li v-for="error of errors" :key="error">{{error.message}}</li>
       </ul>
     </div>

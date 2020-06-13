@@ -1,6 +1,6 @@
 <template>
   <div class="quote">
-    <h1>Breaking Bad Quotes</h1>
+    <h1 style="color:dark blue">Breaking Bad Quotes</h1>
     <form v-on:click="findQuote">
       <p>
         <button type="submit">Get a random quote</button>
@@ -8,7 +8,7 @@
     </form>
     <ul v-if="results && results.length > 0" class="results">
         <li v-for="item of results" :key="item">
-            <p><strong>{{item.quote}}</strong></p>
+            <p class="styles">{{item.quote}}</p>
             <p>{{item.author}}</p>
             <p>{{item.series}}</p>
         </li>
@@ -51,13 +51,15 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .quote, .series {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 1.4rem;
-  color: #42b983;
+  color: rgb(16, 5, 114);
 }
 
-.author {
-    font-size: 1 rem;
-    color: black
+.styles {
+    font-size: 1.5 rem;
+    color: rgb(16, 5, 114);
+    font-style: italic;
 }
 
 input {
@@ -90,12 +92,12 @@ ul.errors {
 }
 .errors li {
   border: 1px solid red;
-  color: red;
+  color: blueviolet;
   padding: 0.5rem;
   margin: 10px 0;
 }
 a {
-  color: #42b983;
+  color: rgb(16, 5, 114);
 }
 </style>
 © 2020 GitHub, Inc.
