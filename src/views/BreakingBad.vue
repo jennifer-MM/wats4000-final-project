@@ -14,13 +14,14 @@
       <ul v-if="results && results.length > 0" class="results">
         <li v-for="item in results" :key="item.name">
           <p>
-            <strong>{{item.name}}</strong>
+            <strong>Name: {{item.name}}</strong>
           </p>
-          <p>{{item.occupation}}</p>
-          <p>{{item.status}}</p>
-          <p>{{item.nickname}}</p>
-          <p>{{item.portrayed}}</p>
-          <p>{{item.category}}</p>
+          <img class="image" v-bind:src="item.img" v-bind:alt="item.alt" />
+          <p> Occupation: {{item.occupation}}</p>
+          <p>Alive or dead: {{item.status}}</p>
+          <p>Nickname: {{item.nickname}}</p>
+          <p>Portrayed by: {{item.portrayed}}</p>
+          <p>Show series: {{item.category}}</p>
         </li>
       </ul>
 
@@ -68,6 +69,31 @@ export default {
         .catch(error => {
           this.errors.push(error);
         });
+    },
+    getCharacter: function() {
+      this.results = null;
+      this.showLoading = true;
+
+      let cacheLabel = "findName_" + this.result;
+      let cacheExpiry = 15 * 60 * 1000;
+
+      if (this.$ls.get(cacheLabel)) {
+        console.log("Cached query detected.");
+        this.results = this.$ls.get(cacheLabel);
+        this.showLoading = false;
+      } else {
+        console.log("No cache available. Making API request.");
+        API.get("find", {
+          params: {
+            q: this.query
+          }
+        }).then(response => {
+          this.$ls.set(cacheLabel, response.data, cacheExpiry);
+          console.log("New query has been cached as: " + cacheLabel);
+          this.results = response.data;
+          this.showLoading = false;
+        });
+      }
     }
   }
 };
@@ -90,6 +116,28 @@ input[type="text"] {
   background: rgba(0, 0, 0, 0.02);
   padding: 0.5rem;
 }
+.image {
+  width: 300px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black;
+}
+.displayCharacter {
+  display: inline-block;
+  margin: 10px;
+  width: 250px;
+  padding: 0.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+}
+.results li {
+  display: inline-block;
+  margin: 10px;
+  padding: 0.5rem;
+  width: 200px;
+  min-height: 100px;
+  color: black;
+}
 button {
   background: #333;
   padding: 0.5rem;
@@ -107,16 +155,7 @@ ul.results {
   list-style-type: none;
   padding: 0;
 }
-.results li {
-  display: inline-block;
-  margin: 10px;
-  border: solid 1px #333;
-  padding: 0.5rem;
-  width: 200px;
-  min-height: 100px;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.7);
-}
+
 ul.errors {
   list-style-type: none;
 }
