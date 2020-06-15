@@ -75,7 +75,7 @@ input {
   padding: 0.5rem;
 }
 button {
-  background: #f72359;
+  background: #e01346;
   padding: 0.5rem;
   font-weight: 300;
   color: white;
