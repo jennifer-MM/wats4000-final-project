@@ -14,7 +14,12 @@ Vue.config.productionTip = false
 new Vue({
   el:'#app',
   router,
-  template:'<App/>',
+  //template:'<App/>',
   components: { App },
   render: h => h(App),
 }).$mount('#app')
+
+router.redirect({
+  path:'/App',
+  redirect: '/BreakingBad'
+})

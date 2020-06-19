@@ -32,9 +32,10 @@
         <p>Please try "Walter", "Saul" or "Jesse"</p>
       </div>
 
-      <ul v-if="errors && errors.length < 0" class="errors">
+      <div v-else-if="errors && errors.length === 0" class="errors">
+        <h2>Please enter a character's name</h2>
         <li v-for="error of errors" :key="error">{{error.message}}</li>
-      </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -56,6 +57,7 @@ export default {
       protrayed: "",
       category: ""
     };
+
   },
   methods: {
     findName: function() {
@@ -66,10 +68,14 @@ export default {
           }
         })
         .then(response => {
-          this.results = response.data;
+         this.results = response.data;
         })
         .catch(error => {
-          this.errors.push(error);
+          this.showError = true;
+          //this.errors.push(error);
+        //if (!this.name) {
+          //this.errors.push('Name required.');
+        //}
         });
     },
     getCharacter: function() {
